@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StatusBar, Image, Pressable, Alert } from "react-native";
+import { View, StatusBar, Image, Pressable, Modal, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import * as MediaLibrary from "expo-media-library";
 import * as FileSystem from "expo-file-system";
@@ -13,6 +13,7 @@ import { ExampleFrameStyle } from "../styles/Styles";
 export default function ExampleScreen() {
     const navigation = useNavigation();
     const [images, setImages] = useState([]);
+    const [fullscreenImage, setFullscreenImage] = useState(null);
 
     useEffect(() => {
         const loadExamples = async () => {
@@ -23,47 +24,45 @@ export default function ExampleScreen() {
         loadExamples();
     }, []);
 
-    const downloadExample = async (imageUrl) => {
+    const downloadExamples = async (imageUrl, imageName) => {
         try {
-            const { status } = await MediaLibrary.requestPermissionsAsync();
+            const { permission } = await MediaLibrary.requestPermissionsAsync();
 
-            if (status !== "granted") {
-                Alert.alert(
-                    "Permission needed",
-                    "Please grant permission to save the image."
-                );
+            if (permission !== "granted") {
+                Alert.alert("Permission needed");
                 return;
             }
 
-            const fileName = imageUrl.split("/").pop();
-            const fileUri = FileSystem.documentDirectory + fileName;
+            const imageUri = FileSystem.cacheDirectory + imageName;
+            console.log("start downloading");
 
-            const downloadResumable = FileSystem.createDownloadResumable(
+            const downloadExample = FileSystem.createDownloadResumable(
                 imageUrl,
-                fileUri,
+                imageUri,
                 {},
-                null
+                false
             );
 
-            const { uri } = await downloadResumable.downloadAsync();
-            // console.log("Finished downloading to ", uri);
-
-            // by convention the uri is saved like
-            // file:/// ... Documents/Examples%2F012.jpeg?alt=media&tok ... 9130-eb2662b
-            // we need to cut off the part after the ? to avoid a misleading error alert
-            const asset = await MediaLibrary.createAssetAsync(
-                uri.split("?")[0]
+            const { downloadedUri } = await downloadExample.downloadAsync(
+                null,
+                { shouldCache: false }
             );
-            await MediaLibrary.createAlbumAsync("Camera Roll", asset, true);
+            console.log("finish downloading: ", downloadedUri);
 
-            Alert.alert(
-                "Download complete",
-                "The example image has been saved to your gallery.",
-                "You can start testing the app using the example image."
-            );
+            const asset = await MediaLibrary.createAssetAsync(downloadedUri);
+            console.log("asset created at ", asset);
         } catch (error) {
-            console.error("Error downloading image: ", error);
+            console.error("Error in downloadExamples(): ", error);
         }
+    };
+
+    const onImagePress = (imageUrl) => {
+        setFullscreenImage(imageUrl);
+    };
+
+    // Function to close fullscreen view
+    const closeFullscreen = () => {
+        setFullscreenImage(null);
     };
 
     return (
@@ -90,7 +89,7 @@ export default function ExampleScreen() {
                     {images.map((url, index) => (
                         <Pressable
                             key={index}
-                            onPress={() => downloadExample(url)}
+                            onPress={() => onImagePress(url)}
                             style={{ width: 124.5 }}
                         >
                             <Image
@@ -104,6 +103,29 @@ export default function ExampleScreen() {
                     ))}
                 </View>
             </View>
+
+            {/* Fullscreen Modal for Image */}
+            <Modal
+                visible={!!fullscreenImage}
+                transparent={true}
+                onRequestClose={closeFullscreen}
+            >
+                <Pressable
+                    onPress={closeFullscreen}
+                    style={{
+                        flex: 1,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        backgroundColor: "rgba(43, 58, 0, .5)",
+                    }}
+                >
+                    <Image
+                        source={{ uri: fullscreenImage }}
+                        style={{ width: "100%", height: "100%" }}
+                        resizeMode="contain"
+                    />
+                </Pressable>
+            </Modal>
 
             <View
                 style={{

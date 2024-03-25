@@ -117,8 +117,6 @@ export default function HomeScreen() {
 
                     setIsLoadingShowCase(false);
                     navigation.navigate("ShowCase");
-
-                    console.log(birdInfo);
                 }
             }
         } catch (error) {
@@ -174,8 +172,6 @@ export default function HomeScreen() {
                     </Pressable>
                     <Pressable
                         onPress={() => {
-                            console.log("Examples button hit");
-
                             navigation.navigate("Examples");
                         }}
                         style={({ pressed }) => ({
@@ -235,26 +231,27 @@ export default function HomeScreen() {
                     bottom: 42,
                 }}
             >
-                {isLoadingShowCase && (
+                {isLoadingShowCase ? (
                     <View
                         style={{
-                            position: "absolute",
+                            // position: "absolute",
                             alignSelf: "center",
+                            marginLeft: 40,
                             bottom: 6,
                         }}
                     >
                         <Circle size={28} color="rgba(255, 255, 255, 1)" />
                     </View>
+                ) : (
+                    <Pressable
+                        onPress={handleFunFactButton}
+                        style={({ pressed }) => ({
+                            opacity: pressed ? 0.2 : 1,
+                        })}
+                    >
+                        <RegularButton text={"Fun fact"} width={100} />
+                    </Pressable>
                 )}
-
-                <Pressable
-                    onPress={handleFunFactButton}
-                    style={({ pressed }) => ({
-                        opacity: pressed ? 0.2 : 1,
-                    })}
-                >
-                    <RegularButton text={"Fun fact"} width={100} />
-                </Pressable>
             </View>
 
             {/* Add and Collection Buttons */}

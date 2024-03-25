@@ -7,7 +7,6 @@ import { useRoute } from "@react-navigation/native";
 import CollectionImageFrame from "./CollectionImageFrame";
 import CollectionBirdInfoCard from "./CollectionBirdInfoCard";
 import CollectionFunFactText from "./CollectionFunFactText";
-
 import { RegularButtonStyle, LargeFrameStyle } from "../../styles/Styles";
 import { TextStyles } from "../../styles/FontStyles";
 

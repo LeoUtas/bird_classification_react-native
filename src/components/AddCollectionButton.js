@@ -57,6 +57,19 @@ export default function AddCollectionButton({ text, width }) {
         }
     };
 
+    const handleCollectionButton = async () => {
+        try {
+            if (birdInfosLoaded.length === 0) {
+                await handleLoadBirdInfo();
+                navigation.navigate("CollectionShow");
+            } else {
+                navigation.navigate("CollectionShow");
+            }
+        } catch (error) {
+            console.error("Error handling Collection Button: ", error);
+        }
+    };
+
     return (
         <View style={{ flexDirection: "row", marginRight: 20 }}>
             <LinearGradient
@@ -83,8 +96,7 @@ export default function AddCollectionButton({ text, width }) {
 
                     <Pressable
                         onPress={async () => {
-                            await handleLoadBirdInfo();
-                            navigation.navigate("CollectionShow");
+                            await handleCollectionButton();
                         }}
                         style={({ pressed }) => ({
                             flex: 1,

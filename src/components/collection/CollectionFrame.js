@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { View, Image, ScrollView, Pressable, Text } from "react-native";
+import {
+    View,
+    Image,
+    ScrollView,
+    Pressable,
+    Text,
+    refreshControl,
+    RefreshControl,
+} from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Chase } from "react-native-animated-spinkit";
 import { useNavigation } from "@react-navigation/native";
@@ -9,6 +17,7 @@ import { useBirdInfoLoaded } from "../context/BirdInfoLoadedContext";
 import toggleChosenBirdInfoID from "../utils/toggleChosenBirdInfoID";
 import fetchBirdInfoFromFirestore from "../utils/fetchBirdInfoFromFirebase";
 import fetchDeleteBirdInfoFromFirebase from "../utils/fetchDeleteBirdInfoFromFirebase";
+import { fetchBirdInfoToFirebase } from "../utils/fetchBirdInfoToFirebase";
 import { CollectionFrameStyle } from "../../styles/Styles";
 import { TextStyles } from "../../styles/FontStyles";
 
@@ -82,8 +91,19 @@ export default function CollectionFrame() {
         }
     };
 
+    // to handle refresh BirdInfo when swiping down
+    const [refreshing, setRefreshing] = useState(false);
+
     return (
-        <ScrollView contentContainerStyle={{ ...CollectionFrameStyle }}>
+        <ScrollView
+            contentContainerStyle={{ ...CollectionFrameStyle }}
+            refreshControl={
+                <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={handleLoadBirdInfo}
+                />
+            }
+        >
             <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
                 {birdInfosLoaded.map((item, index) => (
                     <View
