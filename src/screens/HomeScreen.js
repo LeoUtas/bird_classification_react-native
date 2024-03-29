@@ -1,12 +1,10 @@
-import { View, StatusBar, Image, Pressable, Text } from "react-native";
+import { View, StatusBar, Image, Pressable } from "react-native";
 import React, { useState, useEffect } from "react";
 import * as ImagePicker from "expo-image-picker";
 import uuid from "react-native-uuid";
 import { useNavigation } from "@react-navigation/native";
 import { Circle } from "react-native-animated-spinkit";
 import { Ionicons } from "@expo/vector-icons";
-
-import OpenAI from "openai";
 
 import BackgroundImage from "../../assets/BackgroundImage.png";
 import HeaderPanel from "../components/HeaderPanel";
@@ -18,7 +16,6 @@ import BirdInfoCard from "../components/BirdInfoCard";
 import { auth } from "../../Firebase/firebase";
 import AddCollectionButton from "../components/AddCollectionButton";
 import fetchImageToServer from "../components/utils/fetchImageToServer";
-import fetchSpeciesToServer from "../components/utils/fetchSpeciesToServer";
 import fetchSpeciesToAIService from "../components/utils/fetchSpeciesToAIService";
 import { useBirdInfo } from "../components/context/BirdInfoContext";
 

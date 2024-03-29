@@ -1,12 +1,12 @@
 import { BIRD_CLASSIFICATION_TOPREDICT_ENDPOINT_PRODUCTION } from "@env";
 
-const BIRD_CLASSIFICATION_TOPREDICT_ENDPOINT =
-    BIRD_CLASSIFICATION_TOPREDICT_ENDPOINT_PRODUCTION;
-
 // const BIRD_CLASSIFICATION_TOPREDICT_ENDPOINT =
 //     "http://localhost:5001/mobilenet/bird-classifier";
 
 export default async function fetchImageToServer(imageUri) {
+    const BIRD_CLASSIFICATION_TOPREDICT_ENDPOINT =
+        BIRD_CLASSIFICATION_TOPREDICT_ENDPOINT_PRODUCTION;
+
     try {
         const formData = new FormData();
         formData.append("image", {
