@@ -9,7 +9,7 @@ import { BIRD_CLASSIFICATION_REQUEST_FUNFACT_ENDPOINT_PRODUCTION } from "@env";
 const BIRD_CLASSIFICATION_REQUEST_FUNFACT_ENDPOINT =
     BIRD_CLASSIFICATION_REQUEST_FUNFACT_ENDPOINT_PRODUCTION;
 
-export default async function fetchImageToServer(species) {
+export default async function fetchSpeciesToServer(species) {
     BIRD_CLASSIFICATION_REQUEST_FUNFACT_ENDPOINT;
 
     try {

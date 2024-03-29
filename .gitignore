@@ -1,3 +1,13 @@
+# intend to hide
+.env
+.gitignore
+common.txt
+.expo/
+ios/
+firebase.js
+GoogleService-Info.plist
+
+
 # Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
 
 # dependencies
@@ -35,9 +45,3 @@ yarn-error.*
 *.tsbuildinfo
 
 
-# intend to hide
-common.txt
-.expo/
-ios/
-firebase.js
-GoogleService-Info.plist
