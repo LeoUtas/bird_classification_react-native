@@ -12,7 +12,6 @@ const BIRD_CLASSIFICATION_TOPREDICT_ENDPOINT =
 
 export default async function fetchImageToServer(imageUri) {
     BIRD_CLASSIFICATION_TOPREDICT_ENDPOINT;
-    console.log(BIRD_CLASSIFICATION_TOPREDICT_ENDPOINT);
 
     try {
         const formData = new FormData();
