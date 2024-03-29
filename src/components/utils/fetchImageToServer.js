@@ -7,6 +7,9 @@ const BIRD_CLASSIFICATION_TOPREDICT_ENDPOINT =
 // const BIRD_CLASSIFICATION_TOPREDICT_ENDPOINT =
 //     "http://localhost:5001/mobilenet/bird-classifier";
 
+// const BIRD_CLASSIFICATION_TOPREDICT_ENDPOINT =
+//     "http://localhost:5001/yolov8/bird-classifier";
+
 export default async function fetchImageToServer(imageUri) {
     BIRD_CLASSIFICATION_TOPREDICT_ENDPOINT;
     console.log(BIRD_CLASSIFICATION_TOPREDICT_ENDPOINT);
