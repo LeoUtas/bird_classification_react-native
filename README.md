@@ -38,7 +38,7 @@ I usually begin by designing the three main parts of an app: the user interface 
 
 <p align="center">
   <a href="GIF">
-    <img src="/assets/appDesign.png" width="480" alt=""/>
+    <img src="/assets/appDesign.png" alt=""/>
   </a>
 </p>
 
@@ -50,7 +50,7 @@ Link to the figma design: <a href="https://www.figma.com/file/t5Jt96p4rlIDbjxL7H
 
 <p align="center">
   <a href="GIF">
-    <img src="/assets/UIdiagram.png" width="480" alt=""/>
+    <img src="/assets/UIdiagram.png" alt=""/>
   </a>
 </p>
 
