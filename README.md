@@ -9,6 +9,7 @@
     <li><a href="#ui-code-structure">UI code structure</a></li>
     <li><a href="#backend">Backend</a></li>
     <li><a href="#model-development">Model development</a></li>
+    <li><a href="#future-improvement">Future improvement</a></li>
   </ol>
 </details>
 
@@ -60,6 +61,16 @@ Link to the backend repository <a href="https://github.com/LeoUtas/bird_classifi
 ## Model development
 
 Link to the research work <a href="https://github.com/LeoUtas/bird_classification_research.git">Bird Classification model finetuning</a>
+
+## Future improvement
+
+There are things I will keep doing for future improvement:
+
+-   Model speed performance
+-   Better notification messages (e.g., SignUp, SignIn, etc.)
+-   More user-friendly authentication mechanism
+
+Please give me your suggestion, thank you
 
 I'm excited to share this work. Please feel free to explore its functionalities. Thank you for this far. Have a wonderful day ahead!
 
