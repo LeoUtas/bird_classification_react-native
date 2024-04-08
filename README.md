@@ -69,6 +69,7 @@ There are things I will keep doing for future improvement:
 -   Model speed performance
 -   Better notification messages (e.g., SignUp, SignIn, etc.)
 -   More user-friendly authentication mechanism
+-   Simulate a case study of having a huge amount of users
 
 Please give me your suggestion, thank you
 
