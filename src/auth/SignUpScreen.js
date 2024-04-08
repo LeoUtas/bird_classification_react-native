@@ -5,10 +5,15 @@ import {
     Image,
     Pressable,
     TextInput,
+    Alert,
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {
+    createUserWithEmailAndPassword,
+    updateProfile,
+    sendEmailVerification,
+} from "firebase/auth";
 
 import BackgroundImage from "../../assets/BackgroundImage.png";
 import HeaderPanel from "../components/HeaderPanel";
@@ -34,9 +39,13 @@ export default function SigUpScreen() {
                 await updateProfile(auth.currentUser, {
                     displayName: name,
                 }).catch((err) => console.log(err));
-
-                // await sendEmailVerification(auth.currentUser);
-                // alert("User created successfully. Please verify your email.");
+                // This email verification is not working as expected yet - doesn't work with @mun.ca
+                await sendEmailVerification(auth.currentUser).then(() => {
+                    Alert.alert(
+                        "Congratulations!",
+                        "User created successfully"
+                    );
+                });
             } catch (error) {
                 console.error("Error during signup: ", error.message);
             }

@@ -5,6 +5,7 @@ import {
     Image,
     Pressable,
     TextInput,
+    Alert,
 } from "react-native";
 import React, { useState } from "react";
 import { sendPasswordResetEmail } from "firebase/auth";
@@ -27,8 +28,13 @@ export default function ResetPasswordScreen() {
     const handleResetPassword = async () => {
         if (email) {
             try {
-                await sendPasswordResetEmail(auth, email);
-                alert("Password reset email sent!");
+                await sendPasswordResetEmail(auth, email).then(() => {
+                    Alert.alert(
+                        "Password reset email sent!",
+                        "Please check your email to reset the password"
+                    );
+                });
+
                 navigation.navigate("HomeScreenGuest");
             } catch (error) {
                 console.error("error when resetting password: ", error.message);

@@ -35,7 +35,10 @@ export default function UpdatePasswordScreen() {
             try {
                 const user = auth.currentUser;
                 await updatePassword(user, newPassword).then(() => {
-                    alert("Update successful");
+                    Alert.alert(
+                        "Congratulations!",
+                        "Password updated successfully"
+                    );
                 });
                 navigation.navigate("HomeScreen");
             } catch (error) {
