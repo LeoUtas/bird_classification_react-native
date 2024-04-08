@@ -31,8 +31,10 @@ I usually begin by designing the three main parts of an app: the user interface 
 
 -   I use Figma to create the UI design.
 -   Then, I code the UI without adding any functions to it yet.
--   Next, I work on coding the backend and start adding some features to the UI.
--   Finally, I configurate the connection between the UI, the backend, and the database, and complete the functionality.
+-   Next, I work on coding the backend and adding some UI features.
+-   Finally, I configure the connection between the UI, the backend, and the database, and complete the functionality.
+
+* Note: The model development was actually the starting point of this project (Link to the research work <a href="https://github.com/LeoUtas/bird_classification_research.git">Bird Classification model finetuning</a>). Once, I got a good model, I thought of a way to deliver it and a web app was the first deployment, but I consider a web app is not convenient; therefore, I developed a mobile app. 
 
 ## App design
 
