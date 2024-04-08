@@ -5,6 +5,7 @@ import {
     Image,
     Pressable,
     TextInput,
+    Alert,
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -31,6 +32,7 @@ export default function SigInScreen() {
                 await signInWithEmailAndPassword(auth, email, password);
             } catch (error) {
                 console.error("error when signing in: ", error.message);
+                Alert.alert("Oops!", "Check your email or password, please");
             }
         } else {
             alert("email & password are required");

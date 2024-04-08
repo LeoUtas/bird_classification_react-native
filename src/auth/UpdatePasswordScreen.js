@@ -5,6 +5,7 @@ import {
     Image,
     Pressable,
     TextInput,
+    Alert,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { updatePassword } from "firebase/auth";
