@@ -22,11 +22,6 @@ import { useBirdInfo } from "../components/context/BirdInfoContext";
 export default function HomeScreen() {
     const navigation = useNavigation();
 
-    // Code to handle the Select/Submit Button:
-    // 1) Make use of auth;
-    // 2) Pick an image;
-    // 3) fetch the Image to server to use as the input of classification model
-
     // const [userName, setUserName] = useState("");
     const [userUid, setUserUid] = useState("");
 
@@ -41,7 +36,11 @@ export default function HomeScreen() {
     const { birdInfo, setBirdInfo } = useBirdInfo();
 
     const handlePickAnImage = async () => {
-        let response = await ImagePicker.launchImageLibraryAsync({
+        // Code to handle the Select/Submit Button:
+        // 1) Make use of auth;
+        // 2) Pick an image;
+        // 3) fetch the Image to server to use as the input of classification model
+        let image = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
             quality: 1,
@@ -50,20 +49,28 @@ export default function HomeScreen() {
         const imageID = uuid.v4();
 
         try {
-            if (!response.canceled) {
-                setImageUri(response.assets[0].uri);
+            if (!image.canceled) {
+                setImageUri(image.assets[0].uri);
 
                 const birdInfoData = await fetchImageToServer(
-                    response.assets[0].uri
+                    image.assets[0].uri
+                );
+
+                // Code to handle the FunFact:
+                // 1) Fetch the species name to server to use as the input prompt for requesting a response from an ai service
+                // 2) Add the funFact (i.e., ai_response) to birdInfo (API context)
+                // 3) Update the birdInfo on Firebase (i.e., adding the funFact)
+                const funFact = await fetchSpeciesToAIService(
+                    birdInfoData.predicted_label
                 );
 
                 if (birdInfoData) {
                     setBirdInfo({
                         ...birdInfoData,
-                        imageUri: response.assets[0].uri,
+                        imageUri: image.assets[0].uri,
                         ID: imageID,
                         userUid: userUid,
-                        funFact: "",
+                        funFact: funFact,
                     });
                 }
             }
@@ -79,49 +86,9 @@ export default function HomeScreen() {
         setIsLoading(false);
     };
 
-    // Code to handle the FunFact Button:
-    // 1) Fetch the species name to server to use as the input prompt for requesting a response from an ai service
-    // 2) Add the funFact (i.e., ai_response) to birdInfo (API context)
-    // 3) Update the birdInfo on Firebase (i.e., adding the funFact)
-
-    const handleFetchFunFactFromServer = async () => {
-        try {
-            const response = await fetchSpeciesToAIService(
-                birdInfo.predicted_label
-            );
-
-            const currentUserUid = auth.currentUser.uid;
-
-            setBirdInfo({
-                ...birdInfo,
-                funFact: response,
-                userUid: currentUserUid,
-            });
-        } catch (error) {
-            console.error("Error fetching species to server:", error);
-        }
-    };
-
     // Def a function to handle FunFact Button
     const handleFunFactButton = async () => {
-        try {
-            if (birdInfo.predicted_label === "") {
-                return;
-            } else {
-                if (birdInfo.funFact) {
-                    navigation.navigate("ShowCase");
-                } else {
-                    setIsLoadingShowCase(true);
-
-                    await handleFetchFunFactFromServer();
-
-                    setIsLoadingShowCase(false);
-                    navigation.navigate("ShowCase");
-                }
-            }
-        } catch (error) {
-            console.error("Error in FunFact Button:", error);
-        }
+        navigation.navigate("ShowCase");
     };
 
     useEffect(() => {
