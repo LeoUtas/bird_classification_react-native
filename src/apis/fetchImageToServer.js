@@ -6,7 +6,7 @@ import {
 import axios from "axios";
 
 export default async function fetchImageToServer(imageUri) {
-    BIRD_CLASSIFICATION_BASE_URL_DEV;
+    BIRD_CLASSIFICATION_BASE_URL_PRODUCTION;
 
     try {
         const formData = new FormData();
@@ -17,7 +17,7 @@ export default async function fetchImageToServer(imageUri) {
         });
 
         const response = await axios.post(
-            `${BIRD_CLASSIFICATION_BASE_URL_DEV}/yolov8/bird-classifier`,
+            `${BIRD_CLASSIFICATION_BASE_URL_PRODUCTION}/yolov8/bird-classifier`,
             formData,
             {
                 headers: {
