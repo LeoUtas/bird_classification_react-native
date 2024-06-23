@@ -28,6 +28,14 @@ export const TextStyles = StyleSheet.create({
         textAlign: "center",
     },
 
+    AccDeleteWarningText: {
+        fontFamily: RegularFontFamilyStyle,
+        fontSize: 18,
+        fontWeight: "bold",
+        color: "white",
+        textAlign: "center",
+    },
+
     AuthTitle: {
         fontFamily: DisplayFontFamilyBoldStyle,
         fontSize: 28,

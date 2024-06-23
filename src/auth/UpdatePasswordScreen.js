@@ -10,6 +10,7 @@ import {
 import React, { useState, useEffect } from "react";
 import { updatePassword } from "firebase/auth";
 import { useNavigation } from "@react-navigation/native";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
 import BackgroundImage from "../../assets/BackgroundImage.png";
 import HeaderPanel from "../components/HeaderPanel";
@@ -17,20 +18,26 @@ import HelloUser from "./HelloUser";
 import { auth } from "../../Firebase/firebase";
 import RegularButton from "../components/RegularButton";
 import AuthButton from "./AuthButton";
+import AccDeleteButton from "./AccDeleteButton";
+import fetchDeleteAccountToFirebase from "../apis/fetchDeleteAccountToFirebase";
 import { TextStyles } from "../styles/FontStyles";
 import { AuthFormFormat, placeholderTextColor } from "../styles/Styles";
 
 export default function UpdatePasswordScreen() {
     const navigation = useNavigation();
 
+    const user = auth.currentUser;
+    const [userUid, setUserUid] = useState("");
     const [userName, setUserName] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
     useEffect(() => {
         setUserName(auth.currentUser.displayName);
+        setUserUid(auth.currentUser.uid);
     }, []);
 
+    // def a function to handle the update password
     const handleUpdatePassword = async () => {
         if (newPassword && newPassword === confirmNewPassword) {
             try {
@@ -47,6 +54,15 @@ export default function UpdatePasswordScreen() {
             }
         } else {
             alert("It's required to enter: Email, Password & Confirm Password");
+        }
+    };
+
+    // def a function to handle the account deletion
+    const handleAccountDeletion = async () => {
+        try {
+            await fetchDeleteAccountToFirebase(userUid, user);
+        } catch (error) {
+            console.log("error when deleting account: ", error.message);
         }
     };
 
@@ -97,7 +113,7 @@ export default function UpdatePasswordScreen() {
                 </View>
             </View>
 
-            {/* Auth buttons */}
+            {/* Account reset button */}
             <View
                 style={{
                     marginTop: 15,
@@ -111,6 +127,29 @@ export default function UpdatePasswordScreen() {
                     })}
                 >
                     <AuthButton text={"Reset"} />
+                </Pressable>
+            </View>
+
+            {/* Account deletion button */}
+            <View
+                style={{
+                    marginTop: wp((160 / 389) * 100),
+                    marginLeft: wp((20 / 389) * 100),
+                    alignSelf: "left",
+                }}
+            >
+                <Text style={TextStyles.AccDeleteWarningText}>
+                    Account removal
+                </Text>
+                <Pressable
+                    onPress={handleAccountDeletion}
+                    style={({ pressed }) => ({
+                        opacity: pressed ? 0.2 : 1,
+                        marginTop: wp((10 / 389) * 100),
+                        marginLeft: wp((10 / 389) * 100),
+                    })}
+                >
+                    <AccDeleteButton text={"Delete"} />
                 </Pressable>
             </View>
 

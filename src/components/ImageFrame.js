@@ -1,6 +1,7 @@
 import { View, Image, Text } from "react-native";
 import React from "react";
 import { Circle } from "react-native-animated-spinkit";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
 import { ImageFrameStyle } from "../styles/Styles";
 import { useBirdInfo } from "./context/BirdInfoContext";
@@ -16,6 +17,8 @@ export default function ImageFrame({
         <View
             style={{
                 ...ImageFrameStyle,
+                height: wp((360 / 389) * 100),
+                width: wp((360 / 389) * 100),
                 borderBottomRightRadius: borderBottomRightRadius,
                 borderBottomLeftRadius: borderBottomLeftRadius,
             }}
@@ -34,7 +37,10 @@ export default function ImageFrame({
                 birdInfo.imageUri !== "" && (
                     <Image
                         source={{ uri: birdInfo.imageUri }}
-                        style={{ width: 360, height: 360 }}
+                        style={{
+                            width: wp((360 / 389) * 100),
+                            height: wp((360 / 389) * 100),
+                        }}
                     />
                 )
             )}

@@ -60,7 +60,12 @@ export default function SigUpScreen() {
             <Image
                 source={BackgroundImage}
                 resizeMode="cover"
-                style={{ height: "100%", width: "100%", position: "absolute" }}
+                style={{
+                    height: "100%",
+                    width: "100%",
+                    position: "absolute",
+                    opacity: 1,
+                }}
             />
 
             <View>

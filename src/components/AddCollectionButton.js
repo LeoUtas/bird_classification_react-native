@@ -6,8 +6,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Chase } from "react-native-animated-spinkit";
 
 import { auth } from "../../Firebase/firebase";
-import fetchBirdInfoFromFirestore from "../components/utils/fetchBirdInfoFromFirebase";
-import { fetchBirdInfoToFirebase } from "./utils/fetchBirdInfoToFirebase";
+import fetchBirdInfoFromFirestore from "../apis/fetchBirdInfoFromFirebase";
+import { fetchBirdInfoToFirebase } from "../apis/fetchBirdInfoToFirebase";
 import { useBirdInfo } from "./context/BirdInfoContext";
 import { useBirdInfoLoaded } from "./context/BirdInfoLoadedContext";
 import { RegularButtonStyle, RegularButtonGradient } from "../styles/Styles";
@@ -25,7 +25,7 @@ export default function AddCollectionButton({ text, width }) {
         try {
             setIsLoading(true);
 
-            await fetchBirdInfoToFirebase(birdInfo.imageUri, birdInfo);
+            await fetchBirdInfoToFirebase(birdInfo.imageUri, birdInfo, userUid);
 
             setIsLoading(false);
         } catch (error) {

@@ -5,9 +5,9 @@ import {
     getDownloadURL,
 } from "firebase/storage";
 import { setDoc, doc } from "firebase/firestore";
-import { db } from "../../../Firebase/firebase";
+import { db } from "../../Firebase/firebase";
 
-export async function fetchBirdInfoToFirebase(imageUri, birdInfo) {
+export async function fetchBirdInfoToFirebase(imageUri, birdInfo, userUid) {
     try {
         // Create a reference for the file in Firebase Storage
         const filename = imageUri.split("/").pop();
@@ -17,8 +17,15 @@ export async function fetchBirdInfoToFirebase(imageUri, birdInfo) {
         const response = await fetch(imageUri);
         const blob = await response.blob();
 
+        // Create metadata object with userUid
+        const metadata = {
+            customMetadata: {
+                userUid: userUid,
+            },
+        };
+
         // Upload file
-        await uploadBytes(fileRef, blob);
+        await uploadBytes(fileRef, blob, metadata);
 
         // Get download URL
         const imageUrl = await getDownloadURL(fileRef);

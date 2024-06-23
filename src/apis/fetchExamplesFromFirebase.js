@@ -1,4 +1,4 @@
-import { db, storage } from "../../../Firebase/firebase";
+import { db, storage } from "../../Firebase/firebase";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 
 export async function fetchExamplesFromFirebase(path) {

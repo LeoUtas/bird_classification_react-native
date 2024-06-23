@@ -3,8 +3,6 @@ export const DisplayFontFamilyBoldStyle = "Comic Neue Bold";
 export const RegularFontFamilyStyle = "Calibri";
 
 export const ImageFrameStyle = {
-    height: 360,
-    width: 360,
     alignSelf: "center",
     borderWidth: 0,
     borderColor: "#2B3A00",
@@ -15,8 +13,6 @@ export const ImageFrameStyle = {
 };
 
 export const PredictionFrame = {
-    height: 120,
-    width: 360,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "rgba(43, 58, 0, 1)",
@@ -27,14 +23,13 @@ export const PredictionFrame = {
 };
 
 export const MainButtonStyle = {
-    width: 120,
-    height: 45,
     borderTopLeftRadius: 35,
 };
 
 export const AuthButtonStyle = { width: 128, height: 40, borderRadius: 25 };
 
 export const MainButtonGradient = ["#2F4100", "#606948"];
+export const AccountDeleteButtonGradient = ["#e60b09", "#f74c06"];
 
 export const ToSignInButtonStyle = { width: 100, height: 40, borderRadius: 25 };
 

@@ -1,18 +1,12 @@
-import { BIRD_CLASSIFICATION_REQUEST_FUNFACT_ENDPOINT_PRODUCTION } from "@env";
-
-// const BIRD_CLASSIFICATION_REQUEST_FUNFACT_ENDPOINT =
-//     "http://localhost:5001/openai/funfact";
-
-// const BIRD_CLASSIFICATION_REQUEST_FUNFACT_ENDPOINT =
-//     "http://localhost:8000/birdclassification/get_ai_response/";
+import {
+    BIRD_CLASSIFICATION_BASE_URL_PRODUCTION,
+    BIRD_CLASSIFICATION_BASE_URL_DEV,
+} from "@env";
 
 export default async function fetchSpeciesToServer(species) {
-    const BIRD_CLASSIFICATION_REQUEST_FUNFACT_ENDPOINT =
-        BIRD_CLASSIFICATION_REQUEST_FUNFACT_ENDPOINT_PRODUCTION;
-
     try {
         const response = await fetch(
-            BIRD_CLASSIFICATION_REQUEST_FUNFACT_ENDPOINT,
+            `${BIRD_CLASSIFICATION_BASE_URL_PRODUCTION}/birdclassification/get_ai_response/`,
             {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
