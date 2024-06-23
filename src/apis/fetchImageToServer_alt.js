@@ -1,12 +1,9 @@
-import { BIRD_CLASSIFICATION_TOPREDICT_ENDPOINT_PRODUCTION } from "@env";
-
-// const BIRD_CLASSIFICATION_TOPREDICT_ENDPOINT =
-//     "http://localhost:5001/mobilenet/bird-classifier";
+import {
+    BIRD_CLASSIFICATION_BASE_URL_PRODUCTION,
+    BIRD_CLASSIFICATION_BASE_URL_DEV,
+} from "@env";
 
 export default async function fetchImageToServer(imageUri) {
-    const BIRD_CLASSIFICATION_TOPREDICT_ENDPOINT =
-        BIRD_CLASSIFICATION_TOPREDICT_ENDPOINT_PRODUCTION;
-
     try {
         const formData = new FormData();
         formData.append("image", {
@@ -16,11 +13,14 @@ export default async function fetchImageToServer(imageUri) {
         });
 
         // Notice the `body: formData` in the fetch options to attach the form data to the request
-        const response = await fetch(BIRD_CLASSIFICATION_TOPREDICT_ENDPOINT, {
-            method: "POST",
-            headers: {},
-            body: formData, // Attach the formData as the request body
-        });
+        const response = await fetch(
+            `${BIRD_CLASSIFICATION_BASE_URL_PRODUCTION}/mobilenet/bird-classifier`,
+            {
+                method: "POST",
+                headers: {},
+                body: formData, // Attach the formData as the request body
+            }
+        );
 
         const responseData = await response.json();
 

@@ -1,6 +1,7 @@
-export default function toggleChosenBirdInfoID(ID, chosenID, setChosenID) {
+export default function toggleChosenBirdInfoID(ID, setChosenID) {
     setChosenID((prev) => {
         const isAlreadyChosen = prev.includes(ID);
+
         if (isAlreadyChosen) {
             // Remove from chosenID
             return prev.filter((id) => id !== ID);

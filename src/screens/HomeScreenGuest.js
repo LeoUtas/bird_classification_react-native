@@ -1,8 +1,13 @@
 import { View, Text, Image, StatusBar, Pressable } from "react-native";
 import React, { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
+import * as imageManipulator from "expo-image-manipulator";
 import uuid from "react-native-uuid";
 import { useNavigation } from "@react-navigation/native";
+import {
+    heightPercentageToDP as hp,
+    widthPercentageToDP as wp,
+} from "react-native-responsive-screen";
 
 import BackgroundImage from "../../assets/BackgroundImage.png";
 import HeaderPanel from "../components/HeaderPanel";
@@ -12,7 +17,7 @@ import RegularButton from "../components/RegularButton";
 import HelloUser from "../auth/HelloUser";
 import MainButton from "../components/MainButton";
 import BirdInfoCard from "../components/BirdInfoCard";
-import fetchImageToServer from "../components/utils/fetchImageToServer";
+import fetchImageToServer from "../apis/fetchImageToServer";
 import { useBirdInfo } from "../components/context/BirdInfoContext";
 import { TextStyles } from "../styles/FontStyles";
 
@@ -24,7 +29,7 @@ export default function HomeScreenGuest() {
     const { setBirdInfo } = useBirdInfo();
 
     const handlePickAnImage = async () => {
-        let response = await ImagePicker.launchImageLibraryAsync({
+        let image = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
             quality: 1,
@@ -32,15 +37,31 @@ export default function HomeScreenGuest() {
 
         const imageID = uuid.v4();
 
-        if (!response.canceled) {
-            setImageUri(response.assets[0].uri);
-            const birdInfoData = await fetchImageToServer(
-                response.assets[0].uri
+        if (!image.canceled) {
+            // Resize the image to 640x640
+            const manipResult = await imageManipulator.manipulateAsync(
+                image.assets[0].uri,
+                [
+                    {
+                        resize: {
+                            width: 640,
+                            height:
+                                640 *
+                                (image.assets[0].height /
+                                    image.assets[0].width),
+                        },
+                    },
+                ]
             );
+
+            setImageUri(manipResult.uri);
+
+            const birdInfoData = await fetchImageToServer(manipResult.uri);
+
             if (birdInfoData) {
                 setBirdInfo({
                     ...birdInfoData,
-                    imageUri: response.assets[0].uri,
+                    imageUri: manipResult.uri,
                     ID: imageID,
                     userUid: "Guest",
                 });
@@ -66,8 +87,9 @@ export default function HomeScreenGuest() {
                 style={{
                     flexDirection: "row",
                     alignSelf: "flex-end",
-                    marginTop: 40,
-                    marginRight: 10,
+                    marginTop: wp((40 / 389) * 100),
+                    marginRight: wp((10 / 389) * 100),
+                    gap: wp((15 / 389) * 100),
                 }}
             >
                 <Pressable
@@ -96,13 +118,13 @@ export default function HomeScreenGuest() {
                 <HelloUser userName={null} />
             </View>
 
-            <View style={{ marginTop: 25 }}>
+            <View style={{ marginTop: wp((20 / 389) * 100) }}>
                 <HeaderPanel text={"Bird Classification"} />
             </View>
 
             <View
                 style={{
-                    marginTop: 48,
+                    marginTop: wp((45 / 389) * 100),
                     alignSelf: "center",
                     alignItems: "center",
                     justifyContent: "center",
@@ -137,8 +159,9 @@ export default function HomeScreenGuest() {
                     position: "absolute",
                     flexDirection: "row",
                     alignItems: "center",
-                    paddingLeft: 20,
-                    bottom: 40,
+                    paddingLeft: wp((25 / 389) * 100),
+                    paddingRight: wp((25 / 389) * 100),
+                    bottom: wp((40 / 389) * 100),
                 }}
             >
                 <Text style={TextStyles.RegularText}>

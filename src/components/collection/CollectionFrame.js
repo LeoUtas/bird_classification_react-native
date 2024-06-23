@@ -15,9 +15,9 @@ import { useNavigation } from "@react-navigation/native";
 import { auth } from "../../../Firebase/firebase";
 import { useBirdInfoLoaded } from "../context/BirdInfoLoadedContext";
 import toggleChosenBirdInfoID from "../utils/toggleChosenBirdInfoID";
-import fetchBirdInfoFromFirestore from "../utils/fetchBirdInfoFromFirebase";
-import fetchDeleteBirdInfoFromFirebase from "../utils/fetchDeleteBirdInfoFromFirebase";
-import { fetchBirdInfoToFirebase } from "../utils/fetchBirdInfoToFirebase";
+import fetchBirdInfoFromFirestore from "../../apis/fetchBirdInfoFromFirebase";
+import fetchDeleteBirdInfoFromFirebase from "../../apis/fetchDeleteBirdInfoFromFirebase";
+import { fetchBirdInfoToFirebase } from "../../apis/fetchBirdInfoToFirebase";
 import { CollectionFrameStyle } from "../../styles/Styles";
 import { TextStyles } from "../../styles/FontStyles";
 
@@ -134,7 +134,6 @@ export default function CollectionFrame() {
                                 onPress={() => {
                                     toggleChosenBirdInfoID(
                                         item.ID,
-                                        chosenBirdInfoIDs,
                                         setChosenBirdInfoIDs
                                     );
                                 }}

@@ -1,5 +1,5 @@
 import { collection, query, where, getDocs } from "firebase/firestore";
-import { db } from "../../../Firebase/firebase";
+import { db } from "../../Firebase/firebase";
 
 export default async function fetchBirdInfoFromFirestore(
     collectionName,

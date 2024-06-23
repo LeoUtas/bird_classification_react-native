@@ -1,15 +1,12 @@
-import { BIRD_CLASSIFICATION_TOPREDICT_ENDPOINT_PRODUCTION } from "@env";
+import {
+    BIRD_CLASSIFICATION_BASE_URL_PRODUCTION,
+    BIRD_CLASSIFICATION_BASE_URL_DEV,
+} from "@env";
+
 import axios from "axios";
 
-// const BIRD_CLASSIFICATION_TOPREDICT_ENDPOINT =
-//     "http://localhost:5001/mobilenet/bird-classifier";
-
-// const BIRD_CLASSIFICATION_TOPREDICT_ENDPOINT =
-//     "http://localhost:5001/yolov8/bird-classifier";
-
 export default async function fetchImageToServer(imageUri) {
-    const BIRD_CLASSIFICATION_TOPREDICT_ENDPOINT =
-        BIRD_CLASSIFICATION_TOPREDICT_ENDPOINT_PRODUCTION;
+    BIRD_CLASSIFICATION_BASE_URL_DEV;
 
     try {
         const formData = new FormData();
@@ -20,7 +17,7 @@ export default async function fetchImageToServer(imageUri) {
         });
 
         const response = await axios.post(
-            BIRD_CLASSIFICATION_TOPREDICT_ENDPOINT,
+            `${BIRD_CLASSIFICATION_BASE_URL_DEV}/yolov8/bird-classifier`,
             formData,
             {
                 headers: {

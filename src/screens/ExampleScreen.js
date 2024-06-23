@@ -7,7 +7,7 @@ import * as FileSystem from "expo-file-system";
 import BackgroundImage from "../../assets/BackgroundImage.png";
 import HeaderPanel from "../components/HeaderPanel";
 import RegularButton from "../components/RegularButton";
-import { fetchExamplesFromFirebase } from "../components/utils/fetchExamplesFromFirebase";
+import { fetchExamplesFromFirebase } from "../apis/fetchExamplesFromFirebase";
 import { ExampleFrameStyle } from "../styles/Styles";
 
 export default function ExampleScreen() {
